@@ -1,21 +1,55 @@
-<html>
+<html lang="ru">
 <head>
-  <title> Simple presentation! </title>
+  <meta charset="utf-8"/>
+  <title>Адаптивная настройка параметров ЭА</title>
+  <meta name="author" content="Arkadii Rost"/>
+  <link href="resource/styles.css" rel="stylesheet"/>
 </head>
 <body class="impress-not-supported">
-<div class="fallback-message">
-    <p>Your browser <b>doesn't support the features required</b> by impress.js, so you are presented with a simplified version of this presentation.</p>
-    <p>For the best experience please use the latest <b>Chrome</b>, <b>Safari</b> or <b>Firefox</b> browser.</p>
-</div>
+
 
 <div id="impress">
-  <div id="title" class="step slide" data-x="0" data-y="0">
-    <p> oppa! </p>
-  </div>
+
+
+<div id="title" class="step slide" data-x="0" data-y="0">
+    <div class="vgap">
+        <p class="presentation_title">
+            Адаптивная настройка параметров эволюционных алгоритмов с помощью обучения с подкреплением
+        </p>
+        <div class="right vgap">
+            <span class="presentation_author">
+                Аркадий Рост
+            </span>
+        </div>
+        <div class="right">
+            <span class="small_font">научный руководитель: </span>
+            <span class="presentation_author">
+                Шалыто А.А.
+            </span>
+        </div>
+    </div>
+    <div class="presentation_date">
+        <span class="date">02.2015</span>
+        <span class="slash">/</span>
+        <span class="ifmo">ИТМО</span>
+    </div>
 </div>
 
 
-<script src="http://cdnjs.cloudflare.com/ajax/libs/impress.js/0.5.3/impress.min.js"></script>
+<div id="why" class="step slide" data-x="0" data-y="-1000">
+    <div>
+        <div class="slide-header">Зачем?</div>
+        <ul class="vgap slide-content">
+            <li>Интересная область</li>
+            <li>Есть хорошие алгоритмы обучения с подкреплением</li>
+            <li>Нет комплексного исследования</li>
+        </ul>
+    </div>
+</div>
+
+</div>
+
+<script src="resource/impress.js"></script>
 <script>impress().init();</script>
 
 </body>
