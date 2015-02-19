@@ -37,14 +37,58 @@
 
 
 <div id="why" class="step slide" data-x="0" data-y="-1000">
-    <div>
-        <div class="slide-header">Зачем?</div>
-        <ul class="vgap slide-content">
-            <li>Интересная область</li>
-            <li>Есть хорошие алгоритмы обучения с подкреплением</li>
-            <li>Нет комплексного исследования</li>
+    <div class="slide-header">Зачем?</div>
+    <ul class="vgap slide-content">
+        <li>В этой области проводятся исследования</li>
+        <li>Есть хорошие алгоритмы обучения с подкреплением</li>
+        <li>Нет обединяющей исследовательской работы</li>
+    </ul>
+</div>
+
+<div id="rl" class="step slide" data-x="0" data-y="-2000">
+    <div class="slide-header">Обучение с подкреплением</div>
+    <div class="vgap">
+        <img src="resource/ea-rl-scheme.png" alt="Схема обучения с подкреплением"/>
+    </div>
+</div>
+
+<div id="problems" class="step slide" data-x="0" data-y="-3000">
+    <div class="slide-header">Сопутствующие проблемы</div>
+    <ul class="vgap slide-content">
+        <li>
+            Необходимо выбирать значение среди несчетного множества вариантов => дискретизация задачи
+            <ul>
+                <li>статическое разбиение (Karafotias)</li>
+                <li>адаптивное разбиение (EARPS)</li>
+            </ul>
+        </li>
+        <li>Выбор нескольких параметров</li>
+    </ul>
+</div>
+
+<div id="utree" class="step slide" data-x="0" data-y="-4000">
+    <div class="slide-header">Continuous UTree</div>
+    <div class="vgap slide-content">
+        - разновидность дерева решений адаптированная для применения обучения с подкреплением
+        <ul>
+            <li>в листьях хранятся состояния</li>
+            <li>сохраняются сделанные переходы, полученные награды и соответствующие им состояния среды</li>
+            <li>решение о разделении состояния принимается на основе теста Колмагорова-Смирнова</li>
         </ul>
     </div>
+</div>
+
+<div id="questions" class="step slide" data-x="0" data-y="-5000">
+    <div class="slide-header">Открытые вопросы</div>
+    <ul class="vgap slide-content">
+        <li>Как пересчитывать Q при разделении вершин?</li>
+        <li>
+            Какие алгоритмы обучения с подкреплением стоит протестировать?(Q-learning, eps-greedy Q-learning, delayed Q-learning)
+        </li>
+        <li>Стоит ли пробовать делать рестарты?</li>
+        <li>EARPS в листьях?</li>
+        <li>Надо ли менять все параметры каждый раз?</li>
+    </ul>
 </div>
 
 </div>
