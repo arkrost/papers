@@ -1,0 +1,160 @@
+\documentclass[hyperref=unicode,graphics=pdflatex,13pt]{beamer}
+
+\mode<presentation>
+{
+  \usetheme{default}
+  %\usecolortheme{seahorse}
+  \usefonttheme{serif}
+  \setbeamercovered{invisible}
+  \setbeamertemplate{footline}{\hfill\insertframenumber/\inserttotalframenumber}
+    \setbeamersize{text margin left=0.4cm,text margin right=0.4cm, sidebar width left=0cm}
+}
+
+\graphicspath{{pic/}}
+
+\usepackage[utf8]{inputenc}
+\usepackage[T2A]{fontenc}
+\usepackage[english,russian]{babel}
+\usepackage{times}
+\usepackage{float}
+\usepackage{color, colortbl}
+\usepackage{caption}
+\definecolor{res}{RGB}{255, 215, 0}
+\definecolor{olivegreen}{RGB}{38, 141, 38}
+
+\definecolor{res2}{RGB}{255,236,139}
+\definecolor{res1}{RGB}{255,185,15}
+% \definecolor{res2}{RGB}{230,230,230}
+% \definecolor{res1}{RGB}{153,149,140}
+\definecolor{res3}{RGB}{102,205,0}
+\definecolor{res4}{RGB}{152,251,152}
+%\usepackage{xcolor}
+
+\beamertemplatenavigationsymbolsempty 
+
+\newcommand\highlight[1]{{\color{blue}{#1}}}
+\newcommand\col[1]{{\color{olivegreen}{#1}}}
+
+\title[Адаптивная настройка параметров\ldots]{Адаптивная настройка параметров эволюционных алгоритмов с помощью обучения с подкреплением}
+
+\author[\mbox{А.~Рост}]{Рост Аркадий Юрьевич \\ Научный руководитель~---~д.т.н.,~профессор~А.~А.~Шалыто}
+\institute[Университет ИТМО]{
+{\includegraphics[width=0.3\textwidth]{itmo-dots-ru-small.png}}}
+\date[]{9 апреля 2015 г. \\IV Всероссийский конгресс молодых ученых}
+
+\AtBeginSection[] {
+  \begin{frame}<beamer>{}
+    \tableofcontents[currentsection,currentsubsection]
+  \end{frame}
+}
+
+\begin{document}
+
+\begin{frame}
+  \titlepage
+\end{frame}
+
+\begin{frame}{Цели}
+    Подбор оптимальных значений параметров ЭА затруднен тем, что они:
+    \begin{itemize}
+            \item зависят не только от ЭА, но и от экземпляра решаемой задачи;
+            \item могут меняться во время работы алгоритма.
+    \end{itemize}
+    Следовательно, надо выбирать значения параметров во время работы ЭА.
+\end{frame}
+
+\begin{frame}{Выбор значения параметра}
+    Обычно значения параметра ЭА можно ограничить некоторым интервалом.
+
+    Для дискретизации задачи интервал разбивают на части.
+    \begin{itemize}
+        \item статически (q-learning)
+        \item динамически (arpc, earpc)
+    \end{itemize}
+\end{frame}
+
+\begin{frame}{Обучение с подкреплением}
+    \begin{itemize}
+        \item агент выбирает действие --- значения параметров ЭА
+        \item среда --- ЭА, формирует следующее поколение
+        \item агенту возвращается награда, зависящая от значения функции приспособленности
+        \item значение ожидаемой награды $Q(s, a)\gets Q(s,a)+\alpha(r+\gamma\max\limits_{a'}Q(s',a')-Q(s,a))$
+    \end{itemize}
+\end{frame}
+
+\begin{frame}{Среда}
+ Состояние среды описывается:
+ \begin{itemize}
+     \item значениями параметров $\{p_i\}$
+     \item наблюдаемыми характеристиками ЭА $\{o_i\}$, такими как:
+     \begin{itemize}
+        \item генетическое разнообразие
+        \item разнообразие значений функции приспособленности
+        \item стагнация
+        \item прирост значения функции приспособленности
+     \end{itemize}
+ \end{itemize}
+\end{frame}
+
+\begin{frame} {UTree}
+  \begin{itemize}
+    \item выделяется набор состояний, в каждом из которых свое распределение вероятностей выбора части интервала значений параметра
+    \item состояние выбирается с помощью дерева решений, которое строится во время работы алгоритма
+    \item в вершинах дерева стоят условия на наблюдаемые характеристики ЭА
+  \end{itemize}
+\end{frame}
+
+\begin{frame}{Построение UTree}
+    \begin{itemize}
+        \item начинаем с одним состоянием
+        \item в состоянии запоминаем <S, a, S', r>
+        \item $q \gets r + \gamma E(Q(S'))$, где $E(Q(S'))$~--- ожидаемая награда в состоянии $S'$
+        \item статистический тест Колмогорова-Смирнова
+    \end{itemize}
+\end{frame}
+
+
+\begin{frame}{Earpc}
+  \begin{itemize}
+    \item интервал значний параметра разбивается во время работы на $k$ частей
+    \item каждому выбранному значению $p_i$ соответствует $q_i$
+    \item разбиваем выбранные значения на $k$ кластеров
+    \item ищем разбиение, минимизируя энтропию
+    \item $Q_{k_j} = \frac{1}{|c(k_j)|}\sum_{p_i \in k_j}{q_i}$
+    \item $P_{k_j} \propto Q_{k_j}$
+  \end{itemize}
+\end{frame}
+
+
+\begin{frame}{Разрабатываемый метод}
+    \begin{itemize}
+        \item объединяет UTree и Earpc
+        \item динамически разбивает интервал значений параметра
+        \item $E(Q) = \sum{P_{k_j}Q_{k_j}}$
+    \end{itemize}
+\end{frame}
+
+\begin{frame}{Модельная задача}
+    \begin{itemize}
+        \item найти оптимум функции $\sum{x_i^2}$ с заданной точностью, $x_i \in [-1000, 1000]$
+        \item $reward = c(\frac{f_t}{f_{t + 1}} - 1)$
+        \item (1+1)-эволюционная стратегия
+        \item мутация $x_i + \sigma \cdot nextGaussian$, $\sigma \in (0, 10]$
+    \end{itemize}
+\end{frame}
+
+\begin{frame}{Проблемы}
+    \begin{itemize}
+        \item неотрицательная награда, почти всегда нулевая
+        \item необходимо выбирать параметр на несколько итераций алгоритма
+        \item пересчет ожидаемой награды при ветвлении состояния
+    \end{itemize}
+\end{frame}
+
+\begin{frame}
+    \begin{center}
+        Спасибо за внимание!
+    \end{center}
+\end{frame}
+\end{document}
+
