@@ -129,7 +129,7 @@
     \item каждому выбранному значению $p_i$ соответствует $q_i$
     \item разбиваем выбранные значения на $k$ кластеров
     \item ищем разбиение, минимизируя \textit{энтропию}
-    \item $Q_{k_j} = \frac{1}{|c(k_j)|}\sum_{p_i \in k_j}{q_i}$
+    \item $Q_{k_j} = \frac{1}{|c(k_j)|}\sum\limits_{p_i \in k_j}{q_i}$
     \item $P_{k_j} \propto Q_{k_j}$
   \end{itemize}
 \end{frame}
@@ -161,19 +161,21 @@
 \end{frame}
 
 \begin{frame}{Результаты}
-    \begin{tabular}{|l|l|l|l|l|l|}
-        \hline
-        k & Dist & q & single q & earpc & single earpc\\
-        \hline
-        1 & \cellcolor{olivegreen}5372 & 13604 & 9907 & 13868 & 10996 \\
-        \hline
-        5 & \cellcolor{olivegreen}10058 & 54608 & 43692 & 41712 & 47427 \\
-        \hline
-        10 & \cellcolor{olivegreen}11964 & 67218 & 174344 & 114524 & 89886 \\
-        \hline
-        20 & \cellcolor{olivegreen}8876 & 178021 & 121354 & 159028 & - \\
-        \hline
-    \end{tabular}
+    \begin{center}
+        \begin{tabular}{|l|l|l|l|l|l|}
+            \hline
+            k & Dist & q & single q & earpc & single earpc\\
+            \hline
+            1 & \cellcolor{olivegreen}5372 & 13604 & 9907 & 13868 & 10996 \\
+            \hline
+            5 & \cellcolor{olivegreen}10058 & 54608 & 43692 & 41712 & 47427 \\
+            \hline
+            10 & \cellcolor{olivegreen}11964 & 67218 & 174344 & 114524 & 89886 \\
+            \hline
+            20 & \cellcolor{olivegreen}8876 & 178021 & 121354 & 159028 & - \\
+            \hline
+        \end{tabular}
+    \end{center}
 \end{frame}
 
 \begin{frame}{Earpc разбиение}
