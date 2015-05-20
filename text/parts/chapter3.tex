@@ -5,7 +5,7 @@
 
 \section{Описание экспериментов}
 
-В качестве модельных задач используются известные задачи числовой оптимизации, а именно нахождение глобального минимума некоторой многомерной функции в ограниченной области с заданной точностью. Пусть $F(x_1, \ldots, x_n)$~-- оптимизируемая функция. При этом $x_i \in [min_i, max_i]$ для $1 \le i \le n$. В качестве функции приспособленности используется функция $F$. Поэтом более приспособленной считается особь с меньшим значением функции приспособленности.
+В качестве модельных задач используются известные задачи числовой оптимизации, а именно нахождение глобального минимума некоторой многомерной функции в ограниченной области с заданной точностью~$\epsilon$. Пусть $F(x_1, \ldots, x_n)$~-- оптимизируемая функция. При этом $x_i \in [min_i, max_i]$ для $1 \le i \le n$. В качестве функции приспособленности используется функция $F$. Поэтом более приспособленной считается особь с меньшим значением функции приспособленности.
 
 В качестве особи ЭА, решающего заданную задачу, рассматривался набор из $n$ вещественных чисел. Пусть $x_1, \ldots, x_n$ -- текущее решение задачи оптимизации. В качестве эволюционных операторов применялся только оператор мутации, определяемый следующим образом:
 \begin{equation}
@@ -28,7 +28,7 @@ x_i = \begin{cases}
  \item $\alpha_0 = 0.2$~-- коэффициент скорости обучения при нулевой награде;
  \item $\alpha = 0.9$~-- коэффициент скорости обучения при положительной награде;
  \item $\gamma = 0.8$~-- дисконтный фактор;
- \item $\epsilon = 0.1$~-- вероятность выбора случайного действия;
+ \item $\varepsilon = 0.1$~-- вероятность выбора случайного действия;
  \item $c = 100$~-- коэффициент масштабирования награды.
 \end{itemize}
 
@@ -36,14 +36,15 @@ x_i = \begin{cases}
 \begin{itemize}
  \item $\mu \in \{1, 5, 10\}$~-- число особей в поколении;
  \item $\lambda \in \{1, 3, 7\}$~-- число потомков, создаваемых для каждой особи в процессе формирования следующего поколения;
- \item $\sigma \in \{1, 2, 3\}$~-- верхняя граница допустимых значений $\sigma$.
+ \item $\sigma \in \{1, 2, 3\}$~-- верхняя граница допустимых значений $\sigma$;
+ \item $\epsilon = 10^{-5}$~-- допустимое отколонение решения от минимального значения оптимизируемой функции. 
 \end{itemize}
 
 \subsection{Описание результатов}
 
 Введем следующие обозначения для исследуемых методов настройки параметров ЭА:
 \begin{itemize}
- \item \textit{karafotias}~-- метод, предложенный Karafotias et al.~(\ref{karafotias});
+ \item \textit{karafotias}~-- метод, предложенный \textit{Karafotias et al}.~(\ref{karafotias});
  \item \textit{q-learn}~-- метод настройки параметров ЭА с помощью $Q$-обучения с одним состоянием среды и множеством действий, заданным до начала работы алгоритма;
  \item \textit{earpc}~-- метод $earpc$~(\ref{earpc});
  \item \textit{uearpc}~-- метод на основе $earpc$ и $UTree$~(\ref{composing_method});
@@ -70,37 +71,9 @@ f(x_1,..,x_n) = \sum\limits_{i=1}^n{x_i^2}
     \label{sphere_plot}
 \end{figure}
 
-\begin{figure}
-    \centering
-    \label{earpc_sphere_dist}
-    \includegraphics[width=0.6\textwidth]{earpc_sphere_dist.png}
-    \caption{График выбранных значений $\sigma$ с помощью метода \textit{earpc}}
-\end{figure}
-
-
-\begin{figure}
-\label{earpc_sphere}
-    \centering
-    \includegraphics[width=0.6\textwidth]{earpc_sphere.png}
-    \caption{График точки разбиения в методе \textit{earpc}}
-\end{figure}
-
-\begin{figure}
-\label{adaptive_sphere}
-    \centering
-    \includegraphics[width=0.6\textwidth]{adaptive_sphere_dist.png}
-    \caption{График выбранных значений $\sigma$ с помощью предложенного метода}
-\end{figure}
-
-\begin{figure}
-    \centering
-    \includegraphics[width=0.6\textwidth]{adaptive_sphere.png}
-    \caption{График точек разбиения в предложенном методе}
-\end{figure}
-
+Результаты применения исследуемых методов к данной задаче приведены в таблицах~\ref{adaptive_sphere_results}, \ref{q_sphere_results} и \ref{earpc_sphere_results}. Результаты подтверждают интуитивные предположения: для всех рассмотренных методов при увеличении параметров $\mu$ или $\lambda$, уменьшается среднее число поколений, потребовавшихся для нахождения минимума сферической функции, а при увеличении $k$ оно увеличивается. В самом деле, при увеличении параметров $\mu$ или $\lambda$ увеличивается число особей, рассматриваемых при формировании следующего поколения. А увеличение параметра $k$ увеличивает диапазон допустимых значений $\sigma$, что затрудняет выбор оптимального значения.
 
 \begin{table}
-\label{sphere_results}
   \centering
     \begin{tabular}{|*4{c|}}
     \hline
@@ -136,7 +109,8 @@ f(x_1,..,x_n) = \sum\limits_{i=1}^n{x_i^2}
   \hline
   \end{tabular}
   \captionsetup{justification=centering}
-  \caption{Таблица с результатами применения метода \text{adaptive}}
+  \caption{Таблица с результатами применения метода \text{adaptive} для сферической функции.}
+  \label{adaptive_sphere_results}
 \end{table}
 
 \begin{table}
@@ -173,15 +147,16 @@ f(x_1,..,x_n) = \sum\limits_{i=1}^n{x_i^2}
     \cline{2-7}
     & q-learn & karafotias & q-learn & karafotias & q-learn & karafotias \\
     \hline
-    1 & 36698 & 29112 & 7845 & 14115 & 2907 & 5813 \\
+    1 & 36698 & 29112 & 7845 & 9115 & 3907 & 4813 \\
     \hline
-    5 & 8328 & 5886 & 2790 & 2222 & 919& \cellcolor{olive}{777} \\
+    5 & 8328 & 5886 & 2790 & 2222 & 919 & \cellcolor{olive}{777} \\
     \hline
     10 & 2398 & 2531 & 1074 & 1206& \cellcolor{olive}{391} & 427 \\
     \hline
     \end{tabular}
   \captionsetup{justification=centering}
-  \caption{Таблица с результатами применения методов \text{q-learn} и \text{karafotias}}
+  \caption{Таблица с результатами применения методов \text{q-learn} и \text{karafotias} для сферической функции.}
+  \label{q_sphere_results}
 \end{table}
 
 \begin{table}
@@ -226,9 +201,27 @@ f(x_1,..,x_n) = \sum\limits_{i=1}^n{x_i^2}
     \hline
   \end{tabular}
   \captionsetup{justification=centering}
-  \caption{Таблица с результатами применения методов \text{earpc} и \text{uearpc}}
+  \caption{Таблица с результатами применения методов \text{earpc} и \text{uearpc} для сферической функции.}
+  \label{earpc_sphere_results}
 \end{table}
 
+Среди рассмотренных методов лучшие результаты в большинстве случаев были достигнуты при использовании предложенного метода \textit{adaptive}. При значениях парамеров $\mu = 1$ или $\lambda = 1$ число итераций, понадобившееся для нахождения минимального значения функции, с помощью этого метода оказалось в разы меньше, чем при использовании остальных. Это можно объяснить тем, что предложенный метод лучше использует информацию о качестве выбранного значения параметра. Графики типичного распределения выбранных значений параметра $\sigma$ для предложенных методов приведены на рис.~\ref{uarpc_sphere_plot} и \ref{adaptive_sphere_plot}.
+
+\begin{figure}
+  \centering
+  \subfloat[График выбранных значений $\sigma$.]{\includegraphics[width=0.5\textwidth]{earpc_sphere_dist.png}}
+  \subfloat[График значения точки разбиения.]{\includegraphics[width=0.5\textwidth]{earpc_sphere.png}}
+  \caption{ Графики работы метода \textit{uarpc}.}
+  \label{uarpc_sphere_plot}
+\end{figure}
+
+\begin{figure}
+  \centering
+  \subfloat[График выбранных значений $\sigma$.]{\includegraphics[width=0.5\textwidth]{adaptive_sphere_dist.png}}
+  \subfloat[График значения точек разбиения.]{\includegraphics[width=0.5\textwidth]{adaptive_sphere.png}}
+  \caption{ Графики работы метода \textit{adaptive}.}
+  \label{adaptive_sphere_plot}
+\end{figure}
 
 \section{Функция Розенброка}
 
@@ -415,7 +408,7 @@ f(x_1, x2) = &sin^2(3\pi x) + (x - 1)^2(1 + sin^2(3\pi y)) + \\
     \hline
     1 & \cellcolor{olive}{4947} & \cellcolor{olive}{2020} & \cellcolor{olive}{1205} \\
     \hline
-    5 & \cellcolor{olive}{1935} & 1085 & \cellcolor{olive}{770} \\
+    5 & \cellcolor{olive}{1935} & \cellcolor{olive}{1085} & \cellcolor{olive}{770} \\
     \hline
     10 & \cellcolor{olive}{1803} & \cellcolor{olive}{887} & 618 \\
     \hline
@@ -425,7 +418,7 @@ f(x_1, x2) = &sin^2(3\pi x) + (x - 1)^2(1 + sin^2(3\pi y)) + \\
     \hline
     1 & \cellcolor{olive}{5216}& \cellcolor{olive}{2900} & \cellcolor{olive}{1700} \\
     \hline
-    5 & \cellcolor{olive}{3105} & 1808 & 1017 \\
+    5 & \cellcolor{olive}{3105} & \cellcolor{olive}{1808} & 1017 \\
     \hline
     10 & \cellcolor{olive}{2071}& \cellcolor{olive}{1330} & 667 \\
     \hline
@@ -446,7 +439,7 @@ f(x_1, x2) = &sin^2(3\pi x) + (x - 1)^2(1 + sin^2(3\pi y)) + \\
   \hline
   1 & 7200 & 7265 & 3305 & 2903 & 1584 & 1600 \\
   \hline
-  5 & 1898 & 1865 & 882 & \cellcolor{olive}{724} & 606 & 444 \\
+  5 & 1898 & 1865 & 862 & \cellcolor{olive}{794} & 606 & 444 \\
   \hline
   10 & 840& \cellcolor{olive}{804} & \cellcolor{olive}{502} & 624 & 331 & \cellcolor{olive}{294} \\
   \hline
@@ -458,7 +451,7 @@ f(x_1, x2) = &sin^2(3\pi x) + (x - 1)^2(1 + sin^2(3\pi y)) + \\
   \hline
   1 & 13420 & 14789 & 6884 & 6601 & 3521 & 2370 \\
   \hline
-  5 & 3517 & 3369& \cellcolor{olive}{1031} & 1326 & 792 & 1089 \\
+  5 & 3517 & 3369 & 1231 & 1326 & 792 & 1089 \\
   \hline
   10 & 1884 & 2197 & 988 & 1006 & 731& \cellcolor{olive}{564} \\
   \hline
@@ -470,7 +463,7 @@ f(x_1, x2) = &sin^2(3\pi x) + (x - 1)^2(1 + sin^2(3\pi y)) + \\
   \hline
   1 & 21470 & 21953 & 9029 & 7071 & 4139 & 4019 \\
   \hline
-  5 & 6966 & 6742& \cellcolor{olive}{1467} & 2664 & 1929 & 1788 \\
+  5 & 6966 & 6742& 2467 & 2664 & 1929 & 1788 \\
   \hline
   10 & 2901 & 2943 & 1462 & 1832 & 1117 & 799 \\
   \hline
@@ -549,7 +542,7 @@ f(x_1, .., x_n) = An + \sum\limits_{i = 1}^n\left[ x_i^2 - Acos\left(2 \pi x_i \
   \hline
   \diagbox{$\mu$}{$\lambda$} & \multicolumn{1}{c|}{1} & \multicolumn{1}{c|}{3} & \multicolumn{1}{c|}{7} \\
   \hline
-  1& \cellcolor{olive}{5124} & 2301 & \cellcolor{olive}{1411} \\
+  1& \cellcolor{olive}{5124} & \cellcolor{olive}{2301} & \cellcolor{olive}{1411} \\
   \hline
   5& \cellcolor{olive}{1859} & 1053 & \cellcolor{olive}{401} \\
   \hline
@@ -580,87 +573,89 @@ f(x_1, .., x_n) = An + \sum\limits_{i = 1}^n\left[ x_i^2 - Acos\left(2 \pi x_i \
 
 
 \begin{table}
-\begin{tabular}{|*7{c|}}
-\hline
-\multicolumn{7}{|l|}{k = 1} \\
-\hline
-\multirow{2}{*}{\diagbox{$\mu$}{$\lambda$}} & \multicolumn{2}{c|}{1} & \multicolumn{2}{c|}{3} & \multicolumn{2}{c|}{7} \\
-\cline{2-7}
- & q-learn & karafotias & q-learn & karafotias & q-learn & karafotias \\
-\hline
-1 & 15058 & 13418 & 3914 & 4167 & 1791 & 2330 \\
-\hline
-5 & 2311 & 2809 & 869& \cellcolor{olive}{748} & 533 & 665 \\
-\hline
-10& \cellcolor{olive}{1497} & 1593& \cellcolor{olive}{488} & 616 & 290& \cellcolor{olive}{235} \\
-\hline
-\multicolumn{7}{|l|}{k = 2} \\
-\hline
-\multirow{2}{*}{\diagbox{$\mu$}{$\lambda$}} & \multicolumn{2}{c|}{1} & \multicolumn{2}{c|}{3} & \multicolumn{2}{c|}{7} \\
-\cline{2-7}
- & q-learn & karafotias & q-learn & karafotias & q-learn & karafotias \\
-\hline
-1 & 23371 & 27239 & 7295 & 7169 & 3488 & 2968 \\
-\hline
-5 & 8076 & 5810 & 2116 & 2705 & 1001 & 1247 \\
-\hline
-10 & 3415 & 2787& \cellcolor{olive}{1037} & 1106 & 811& \cellcolor{olive}{666} \\
-\hline
-\multicolumn{7}{|l|}{k = 3} \\
-\hline
-\multirow{2}{*}{\diagbox{$\mu$}{$\lambda$}} & \multicolumn{2}{c|}{1} & \multicolumn{2}{c|}{3} & \multicolumn{2}{c|}{7} \\
-\cline{2-7}
- & q-learn & karafotias & q-learn & karafotias & q-learn & karafotias \\
-\hline
-1 & 28702 & 36597 & 11427 & 9873 & 5820 & 6462 \\
-\hline
-5 & 12438 & 6791 & 2289 & 3673 & 1626 & 1255 \\
-\hline
-10 & 4473 & 6531 & 2000 & 1650 & 1137& \cellcolor{olive}{1098} \\
-\hline
-\end{tabular}
+  \centering
+  \begin{tabular}{|*7{c|}}
+    \hline
+    \multicolumn{7}{|l|}{k = 1} \\
+    \hline
+    \multirow{2}{*}{\diagbox{$\mu$}{$\lambda$}} & \multicolumn{2}{c|}{1} & \multicolumn{2}{c|}{3} & \multicolumn{2}{c|}{7} \\
+    \cline{2-7}
+    & q-learn & karafotias & q-learn & karafotias & q-learn & karafotias \\
+    \hline
+    1 & 15058 & 13418 & 3914 & 4167 & 1791 & 2330 \\
+    \hline
+    5 & 2311 & 2809 & 869& \cellcolor{olive}{748} & 533 & 665 \\
+    \hline
+    10 & \cellcolor{olive}{1497} & 1593& \cellcolor{olive}{488} & 616 & 290& \cellcolor{olive}{235} \\
+    \hline
+    \multicolumn{7}{|l|}{k = 2} \\
+    \hline
+    \multirow{2}{*}{\diagbox{$\mu$}{$\lambda$}} & \multicolumn{2}{c|}{1} & \multicolumn{2}{c|}{3} & \multicolumn{2}{c|}{7} \\
+    \cline{2-7}
+    & q-learn & karafotias & q-learn & karafotias & q-learn & karafotias \\
+    \hline
+    1 & 23371 & 27239 & 7295 & 7169 & 3488 & 2968 \\
+    \hline
+    5 & 8076 & 5810 & 2116 & 2705 & 1001 & 1247 \\
+    \hline
+    10 & 3415 & 2787& \cellcolor{olive}{1037} & 1106 & 811& \cellcolor{olive}{666} \\
+    \hline
+    \multicolumn{7}{|l|}{k = 3} \\
+    \hline
+    \multirow{2}{*}{\diagbox{$\mu$}{$\lambda$}} & \multicolumn{2}{c|}{1} & \multicolumn{2}{c|}{3} & \multicolumn{2}{c|}{7} \\
+    \cline{2-7}
+    & q-learn & karafotias & q-learn & karafotias & q-learn & karafotias \\
+    \hline
+    1 & 28702 & 36597 & 11427 & 9873 & 5820 & 6462 \\
+    \hline
+    5 & 12438 & 6791 & 2289 & 3673 & 1626 & 1255 \\
+    \hline
+    10 & 4473 & 6531 & 2000 & \cellcolor{olive}{1650} & 1137 & \cellcolor{olive}{1098} \\
+    \hline
+  \end{tabular}
 \end{table}
 
 \begin{table}
-\begin{tabular}{|*7{c|}}
-\hline
-\multicolumn{7}{|l|}{k = 1} \\
-\hline
-\multirow{2}{*}{\diagbox{$\mu$}{$\lambda$}} & \multicolumn{2}{c|}{1} & \multicolumn{2}{c|}{3} & \multicolumn{2}{c|}{7} \\
-\cline{2-7}
- & earpc & uearpc & earpc & uearpc & earpc & uearpc \\
-\hline
-1 & 9003 & 12905 & 3553& \cellcolor{olive}{1701} & 2296 & 1941 \\
-\hline
-5 & 5730 & 4453 & 1393 & 2749 & 1130 & 1258 \\
-\hline
-10 & 2213 & 3085 & 1161 & 1225 & 391 & 429 \\
-\hline
-\multicolumn{7}{|l|}{k = 2} \\
-\hline
-\multirow{2}{*}{\diagbox{$\mu$}{$\lambda$}} & \multicolumn{2}{c|}{1} & \multicolumn{2}{c|}{3} & \multicolumn{2}{c|}{7} \\
-\cline{2-7}
- & earpc & uearpc & earpc & uearpc & earpc & uearpc \\
-\hline
-1 & 20005 & 20819 & 7166 & 13342 & 5874 & 7870 \\
-\hline
-5 & 11153 & 11856 & 3775 & 4542 & 1775 & 2584 \\
-\hline
-10 & 8768 & 4603 & 3719 & 1648 & 1740 & 2558 \\
-\hline
-\multicolumn{7}{|l|}{k = 3} \\
-\hline
-\multirow{2}{*}{\diagbox{$\mu$}{$\lambda$}} & \multicolumn{2}{c|}{1} & \multicolumn{2}{c|}{3} & \multicolumn{2}{c|}{7} \\
-\cline{2-7}
- & earpc & uearpc & earpc & uearpc & earpc & uearpc \\
-\hline
-1 & 32533 & 43832 & 13061 & 10068 & 9797 & 9775 \\
-\hline
-5 & 8320 & 10539 & 4434 & 6799 & 2951 & 4914 \\
-\hline
-10 & 8952 & 11581 & 2611& \cellcolor{olive}{1307} & 1742 & 2479 \\
-\hline
-\end{tabular}
+  \centering
+  \begin{tabular}{|*7{c|}}
+    \hline
+    \multicolumn{7}{|l|}{k = 1} \\
+    \hline
+    \multirow{2}{*}{\diagbox{$\mu$}{$\lambda$}} & \multicolumn{2}{c|}{1} & \multicolumn{2}{c|}{3} & \multicolumn{2}{c|}{7} \\
+    \cline{2-7}
+    & earpc & uearpc & earpc & uearpc & earpc & uearpc \\
+    \hline
+    1 & 9003 & 12905 & 3553& 2701 & 2296 & 1941 \\
+    \hline
+    5 & 5730 & 4453 & 1393 & 2749 & 1130 & 1258 \\
+    \hline
+    10 & 2213 & 3085 & 1161 & 1225 & 391 & 429 \\
+    \hline
+    \multicolumn{7}{|l|}{k = 2} \\
+    \hline
+    \multirow{2}{*}{\diagbox{$\mu$}{$\lambda$}} & \multicolumn{2}{c|}{1} & \multicolumn{2}{c|}{3} & \multicolumn{2}{c|}{7} \\
+    \cline{2-7}
+    & earpc & uearpc & earpc & uearpc & earpc & uearpc \\
+    \hline
+    1 & 20005 & 20819 & 7166 & 13342 & 5874 & 7870 \\
+    \hline
+    5 & 11153 & 11856 & 3775 & 4542 & 1775 & 2584 \\
+    \hline
+    10 & 8768 & 4603 & 3719 & 1648 & 1740 & 2558 \\
+    \hline
+    \multicolumn{7}{|l|}{k = 3} \\
+    \hline
+    \multirow{2}{*}{\diagbox{$\mu$}{$\lambda$}} & \multicolumn{2}{c|}{1} & \multicolumn{2}{c|}{3} & \multicolumn{2}{c|}{7} \\
+    \cline{2-7}
+    & earpc & uearpc & earpc & uearpc & earpc & uearpc \\
+    \hline
+    1 & 32533 & 43832 & 13061 & 10068 & 9797 & 9775 \\
+    \hline
+    5 & 8952 & 11581 & 4434 & 6799 & 3951 & 4914 \\
+    \hline
+    10 & 8320 & 10539 & 2611 & 2479 & 1742 & 1907 \\
+    \hline
+  \end{tabular}
 \end{table}
 
 
