@@ -205,13 +205,13 @@ f(x_1,..,x_n) = \sum\limits_{i=1}^n{x_i^2}
   \label{earpc_sphere_results}
 \end{table}
 
-Среди рассмотренных методов лучшие результаты в большинстве случаев были достигнуты при использовании предложенного метода \textit{adaptive}. При значениях парамеров $\mu = 1$ или $\lambda = 1$ число итераций, понадобившееся для нахождения минимального значения функции, с помощью этого метода оказалось в разы меньше, чем при использовании остальных. Это можно объяснить тем, что предложенный метод лучше использует информацию о качестве выбранного значения параметра. Графики типичного распределения выбранных значений параметра $\sigma$ для предложенных методов приведены на рис.~\ref{uarpc_sphere_plot} и \ref{adaptive_sphere_plot}.
+Среди рассмотренных методов лучшие результаты в большинстве случаев были достигнуты при использовании предложенного метода \textit{adaptive}. Когда параметр $\mu = 1$, то есть в поколении всего одна особь, число итераций, понадобившееся для нахождения минимального значения функции, с помощью этого метода оказалось в разы меньше, чем при использовании остальных. Это можно объяснить тем, что предложенный метод лучше использует информацию о качестве выбранного значения параметра. Графики типичного распределения выбранных значений параметра $\sigma$ для предложенных методов приведены на рис.~\ref{uarpc_sphere_plot}, \ref{adaptive_sphere_plot} и \ref{karafotias_sphere}.
 
 \begin{figure}
   \centering
   \subfloat[График выбранных значений $\sigma$.]{\includegraphics[width=0.5\textwidth]{earpc_sphere_dist.png}}
   \subfloat[График значения точки разбиения.]{\includegraphics[width=0.5\textwidth]{earpc_sphere.png}}
-  \caption{ Графики работы метода \textit{uarpc}.}
+  \caption{ Графики работы метода \textit{uarpc} для сферической функции.}
   \label{uarpc_sphere_plot}
 \end{figure}
 
@@ -219,9 +219,17 @@ f(x_1,..,x_n) = \sum\limits_{i=1}^n{x_i^2}
   \centering
   \subfloat[График выбранных значений $\sigma$.]{\includegraphics[width=0.5\textwidth]{adaptive_sphere_dist.png}}
   \subfloat[График значения точек разбиения.]{\includegraphics[width=0.5\textwidth]{adaptive_sphere.png}}
-  \caption{ Графики работы метода \textit{adaptive}.}
+  \caption{ Графики работы метода \textit{adaptive} для сферической функции.}
   \label{adaptive_sphere_plot}
 \end{figure}
+
+\begin{figure}
+  \centering
+  \includegraphics[width=0.5\textwidth]{karafotias_sphere.png}
+  \caption{График выбранных значений $\sigma$ в методе \textit{karafotias} для сферической функции.}
+  \label{karafotias_sphere}
+\end{figure}
+
 
 \section{Функция Розенброка}
 
@@ -276,7 +284,7 @@ f(x_1, x_2) = (a - x_1^2)^2 + b(x_2 - x_1^2)^2
   \hline
   \end{tabular}
   \captionsetup{justification=centering}
-  \caption{Таблица с результатами применения метода \text{adaptive}}
+  \caption{Таблица с результатами применения метода \text{adaptive} для функции Розенброка.}
 \end{table}
 
 \begin{table}
@@ -321,7 +329,7 @@ f(x_1, x_2) = (a - x_1^2)^2 + b(x_2 - x_1^2)^2
     \hline
   \end{tabular}
   \captionsetup{justification=centering}
-  \caption{Таблица с результатами применения методов \text{q-learn} и \text{karafotias}}
+  \caption{Таблица с результатами применения методов \text{q-learn} и \text{karafotias} для функции Розенброка.}
 \end{table}
 
 \begin{table}
@@ -366,8 +374,31 @@ f(x_1, x_2) = (a - x_1^2)^2 + b(x_2 - x_1^2)^2
     \hline
   \end{tabular}
   \captionsetup{justification=centering}
-  \caption{Таблица с результатами применения методов \text{earpc} и \text{uearpc}}
+  \caption{Таблица с результатами применения методов \text{earpc} и \text{uearpc} для функции Розенброка.}
 \end{table}
+
+\begin{figure}
+  \centering
+  \subfloat[График выбранных значений $\sigma$.]{\includegraphics[width=0.5\textwidth]{earpc_rosenbrock_dist.png}}
+  \subfloat[График значения точки разбиения.]{\includegraphics[width=0.5\textwidth]{earpc_rosenbrock.png}}
+  \caption{ Графики работы метода \textit{uarpc} для функции Розенброка.}
+  \label{uarpc_rosenbrock_plot}
+\end{figure}
+
+\begin{figure}
+  \centering
+  \subfloat[График выбранных значений $\sigma$.]{\includegraphics[width=0.5\textwidth]{adaptive_rosenbrock_dist.png}}
+  \subfloat[График значения точек разбиения.]{\includegraphics[width=0.5\textwidth]{adaptive_rosenbrock.png}}
+  \caption{ Графики работы метода \textit{adaptive} для функции Розенброка.}
+  \label{adaptive_rosenbrock_plot}
+\end{figure}
+
+\begin{figure}
+  \centering
+  \includegraphics[width=0.5\textwidth]{karafotias_rosenbrock.png}
+  \caption{График выбранных значений $\sigma$ в методе \textit{karafotias} для функции Розенброка.}
+  \label{karafotias_rosenbrock}
+\end{figure}
 
 \section{Функция Леви}
 
@@ -424,7 +455,7 @@ f(x_1, x2) = &sin^2(3\pi x) + (x - 1)^2(1 + sin^2(3\pi y)) + \\
     \hline
   \end{tabular}
   \captionsetup{justification=centering}
-  \caption{Таблица с результатами применения метода \text{adaptive}}
+  \caption{Таблица с результатами применения метода \text{adaptive} для функции Леви.}
 \end{table}
 
 \begin{table}
@@ -469,7 +500,7 @@ f(x_1, x2) = &sin^2(3\pi x) + (x - 1)^2(1 + sin^2(3\pi y)) + \\
   \hline
   \end{tabular}
   \captionsetup{justification=centering}
-  \caption{Таблица с результатами применения методов \text{q-learn} и \text{karafotias}}
+  \caption{Таблица с результатами применения методов \text{q-learn} и \text{karafotias} для функции Леви.}
 \end{table}
 
 \begin{table}
@@ -514,9 +545,31 @@ f(x_1, x2) = &sin^2(3\pi x) + (x - 1)^2(1 + sin^2(3\pi y)) + \\
     \hline
   \end{tabular}
   \captionsetup{justification=centering}
-  \caption{Таблица с результатами применения методов \text{earpc} и \text{uearpc}}
+  \caption{Таблица с результатами применения методов \text{earpc} и \text{uearpc} для функции Леви.}
 \end{table}
 
+\begin{figure}
+  \centering
+  \subfloat[График выбранных значений $\sigma$.]{\includegraphics[width=0.5\textwidth]{earpc_levi_dist.png}}
+  \subfloat[График значения точки разбиения.]{\includegraphics[width=0.5\textwidth]{earpc_levi.png}}
+  \caption{ Графики работы метода \textit{uarpc} для функции Леви.}
+  \label{uarpc_levi_plot}
+\end{figure}
+
+\begin{figure}
+  \centering
+  \subfloat[График выбранных значений $\sigma$.]{\includegraphics[width=0.5\textwidth]{adaptive_levi_dist.png}}
+  \subfloat[График значения точек разбиения.]{\includegraphics[width=0.5\textwidth]{adaptive_levi.png}}
+  \caption{ Графики работы метода \textit{adaptive} для функции Леви.}
+  \label{adaptive_levi_plot}
+\end{figure}
+
+\begin{figure}
+  \centering
+  \includegraphics[width=0.5\textwidth]{karafotias_levi.png}
+  \caption{График выбранных значений $\sigma$ в методе \textit{karafotias} для функции Леви.}
+  \label{karafotias_levi}
+\end{figure}
 
 \section{Функция Растригина}
 
@@ -569,8 +622,9 @@ f(x_1, .., x_n) = An + \sum\limits_{i = 1}^n\left[ x_i^2 - Acos\left(2 \pi x_i \
   10& \cellcolor{olive}{2352} & 1677 & 1101 \\
   \hline
   \end{tabular}
+  \captionsetup{justification=centering}
+  \caption{Таблица с результатами применения метода \text{adaptive} для функции Растригина.}
 \end{table}
-
 
 \begin{table}
   \centering
@@ -613,6 +667,8 @@ f(x_1, .., x_n) = An + \sum\limits_{i = 1}^n\left[ x_i^2 - Acos\left(2 \pi x_i \
     10 & 4473 & 6531 & 2000 & \cellcolor{olive}{1650} & 1137 & \cellcolor{olive}{1098} \\
     \hline
   \end{tabular}
+  \captionsetup{justification=centering}
+  \caption{Таблица с результатами применения методов \text{q-learn} и \text{karafotias} для функции Растригина.}
 \end{table}
 
 \begin{table}
@@ -656,7 +712,31 @@ f(x_1, .., x_n) = An + \sum\limits_{i = 1}^n\left[ x_i^2 - Acos\left(2 \pi x_i \
     10 & 8320 & 10539 & 2611 & 2479 & 1742 & 1907 \\
     \hline
   \end{tabular}
+  \captionsetup{justification=centering}
+  \caption{Таблица с результатами применения методов \text{earpc} и \text{uearpc} для функции Растригина.}
 \end{table}
 
+\begin{figure}
+  \centering
+  \subfloat[График выбранных значений $\sigma$.]{\includegraphics[width=0.5\textwidth]{earpc_rastrigin_dist.png}}
+  \subfloat[График значения точки разбиения.]{\includegraphics[width=0.5\textwidth]{earpc_rastrigin.png}}
+  \caption{ Графики работы метода \textit{uarpc} для функции Растригина.}
+  \label{uarpc_rastrigin_plot}
+\end{figure}
+
+\begin{figure}
+  \centering
+  \subfloat[График выбранных значений $\sigma$.]{\includegraphics[width=0.5\textwidth]{adaptive_rastrigin_dist.png}}
+  \subfloat[График значения точек разбиения.]{\includegraphics[width=0.5\textwidth]{adaptive_rastrigin.png}}
+  \caption{ Графики работы метода \textit{adaptive} для функции Растригина.}
+  \label{adaptive_rastrigin_plot}
+\end{figure}
+
+\begin{figure}
+  \centering
+  \includegraphics[width=0.5\textwidth]{karafotias_rastrigin.png}
+  \caption{График выбранных значений $\sigma$ в методе \textit{karafotias} для функции Растригина.}
+  \label{karafotias_rastrigin}
+\end{figure}
 
 \section{Выводы}
