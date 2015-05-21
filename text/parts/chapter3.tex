@@ -32,12 +32,12 @@ x_i = \begin{cases}
  \item $c = 100$~-- коэффициент масштабирования награды.
 \end{itemize}
 
-Эксперименты проводились для следующих значений парамеров ЭА:
+Эксперименты проводились для следующих значений параметров ЭА:
 \begin{itemize}
  \item $\mu \in \{1, 5, 10\}$~-- число особей в поколении;
  \item $\lambda \in \{1, 3, 7\}$~-- число потомков, создаваемых для каждой особи в процессе формирования следующего поколения;
  \item $\sigma \in \{1, 2, 3\}$~-- верхняя граница допустимых значений $\sigma$;
- \item $\epsilon = 10^{-5}$~-- допустимое отколонение решения от минимального значения оптимизируемой функции. 
+ \item $\epsilon = 10^{-5}$~-- допустимое отклонение решения от минимального значения оптимизируемой функции. 
 \end{itemize}
 
 \subsection{Описание результатов}
@@ -56,7 +56,7 @@ x_i = \begin{cases}
 Далее подробно описываются модельные задачи, на которых проводилось экспериментальное исследование методов настройки параметров ЭА. Для каждой задачи приводятся результаты ее решения.
  
 \section{Сфера}
-
+\label{sphere_section}
 Необходимо с точностью $\epsilon$ найти минимум унимодальной сферической функции~(\ref{sphere_eq}).
 \begin{equation}
 \label{sphere_eq}
@@ -237,12 +237,14 @@ f(x_1,..,x_n) = \sum\limits_{i=1}^n{x_i^2}
 
 \section{Функция Розенброка}
 
-Предложенная Ховардом Розенброком невыпуклая функция~(\ref{rosenbrock_eq}) часто используется для оценки производительности алгоритмов оптимизации. Обычно в качестве значений $a$ и $b$ выбираются $a = 1$, $b = 100$. График функции для двух переменных представлен на рис.~\ref{rosenbrock_plot}. Считается, что поиск глобального минимума данной функции при помощи алгоритмов оптимизации является нетривиальной задачей. Это объясняется тем, что глобальный минимум находится в длинной, узкой \textit{впадине}, найти которую обычно не составляет труда. Трудность заключается в поиске минимума в этой впадине. При $x_i \in [-15; 10]$ он достигается в точке $(1,..,1)$.
+Предложенная Ховардом Розенброком невыпуклая функция~\cite{rosenbrock}, задаваемая формулой~(\ref{rosenbrock_eq}), часто используется для оценки производительности алгоритмов оптимизации. Обычно в качестве значений $a$ и $b$ выбираются $a = 1$, $b = 100$. График функции для двух переменных представлен на рис.~\ref{rosenbrock_plot}. Считается, что поиск глобального минимума данной функции при помощи алгоритмов оптимизации является нетривиальной задачей. Это объясняется тем, что глобальный минимум находится в длинной, узкой \textit{впадине}, найти которую обычно не составляет труда. Трудность заключается в поиске минимума в этой впадине. При $x_i \in [-15; 10]$ он достигается в точке $(1,..,1)$.
 
 \begin{equation}
 \label{rosenbrock_eq}
 f(x_1, x_2) = (a - x_1^2)^2 + b(x_2 - x_1^2)^2
 \end{equation}
+
+Результаты применения исследуемых методов к данной задаче приведены в таблицах~\ref{adaptive_rosenbrock_results}, \ref{q_rosenbrock_results} и \ref{earpc_rosenbrock_results}. На основе посчитанных результатов можно сделать выводы аналогичные сделанным на основе задачи оптимизации сферической функции~(\protect\ref{sphere_section}). Выводы подтверждаются графиками распределения выбранных значений параметра $\sigma$ в предложенных методах, приведенными на рис.~\ref{earpc_rosenbrock_plot}, \ref{adaptive_rosenbrock_plot} и \ref{karafotias_rosenbrock}.
 
 
 \begin{figure}
@@ -289,6 +291,7 @@ f(x_1, x_2) = (a - x_1^2)^2 + b(x_2 - x_1^2)^2
   \end{tabular}
   \captionsetup{justification=centering}
   \caption{Таблица с результатами применения метода \text{adaptive} для функции Розенброка.}
+  \label{adaptive_rosenbrock_results}
 \end{table}
 
 \begin{table}
@@ -334,6 +337,7 @@ f(x_1, x_2) = (a - x_1^2)^2 + b(x_2 - x_1^2)^2
   \end{tabular}
   \captionsetup{justification=centering}
   \caption{Таблица с результатами применения методов \text{q-learn} и \text{karafotias} для функции Розенброка.}
+  \label{q_rosenbrock_results}
 \end{table}
 
 \begin{table}
@@ -379,6 +383,7 @@ f(x_1, x_2) = (a - x_1^2)^2 + b(x_2 - x_1^2)^2
   \end{tabular}
   \captionsetup{justification=centering}
   \caption{Таблица с результатами применения методов \text{earpc} и \text{uearpc} для функции Розенброка.}
+  \label{earpc_rosenbrock_results}
 \end{table}
 
 \begin{figure}
@@ -386,7 +391,7 @@ f(x_1, x_2) = (a - x_1^2)^2 + b(x_2 - x_1^2)^2
   \subfloat[График выбранных значений $\sigma$.]{\includegraphics[width=0.5\textwidth]{earpc_rosenbrock_dist.png}}
   \subfloat[График значения точки разбиения.]{\includegraphics[width=0.5\textwidth]{earpc_rosenbrock.png}}
   \caption{ Графики работы метода \textit{uarpc} для функции Розенброка.}
-  \label{uarpc_rosenbrock_plot}
+  \label{earpc_rosenbrock_plot}
 \end{figure}
 
 \begin{figure}
@@ -422,6 +427,8 @@ f(x_1, x2) = &sin^2(3\pi x) + (x - 1)^2(1 + sin^2(3\pi y)) + \\
     \caption{График функции Леви для двух переменных.}
     \label{levi_plot}
 \end{figure}
+
+Результаты применения исследуемых методов к данной задаче приведены в таблицах~\ref{adaptive_levi_results}, \ref{q_levi_results} и \ref{earpc_levi_results}. На основе посчитанных результатов можно сделать выводы аналогичные сделанным на основе задачи оптимизации сферической функции~(\protect\ref{sphere_section}). Выводы подтверждаются графиками распределения выбранных значений параметра $\sigma$ в предложенных методах, приведенными на рис.~\ref{earpc_levi_plot}, \ref{adaptive_levi_plot} и \ref{karafotias_levi}.
 
 \begin{table}
   \centering
@@ -460,6 +467,7 @@ f(x_1, x2) = &sin^2(3\pi x) + (x - 1)^2(1 + sin^2(3\pi y)) + \\
   \end{tabular}
   \captionsetup{justification=centering}
   \caption{Таблица с результатами применения метода \text{adaptive} для функции Леви.}
+  \label{adaptive_levi_results}
 \end{table}
 
 \begin{table}
@@ -505,6 +513,7 @@ f(x_1, x2) = &sin^2(3\pi x) + (x - 1)^2(1 + sin^2(3\pi y)) + \\
   \end{tabular}
   \captionsetup{justification=centering}
   \caption{Таблица с результатами применения методов \text{q-learn} и \text{karafotias} для функции Леви.}
+  \label{q_levi_results}
 \end{table}
 
 \begin{table}
@@ -550,6 +559,7 @@ f(x_1, x2) = &sin^2(3\pi x) + (x - 1)^2(1 + sin^2(3\pi y)) + \\
   \end{tabular}
   \captionsetup{justification=centering}
   \caption{Таблица с результатами применения методов \text{earpc} и \text{uearpc} для функции Леви.}
+  \label{earpc_levi_results}
 \end{table}
 
 \begin{figure}
@@ -557,7 +567,7 @@ f(x_1, x2) = &sin^2(3\pi x) + (x - 1)^2(1 + sin^2(3\pi y)) + \\
   \subfloat[График выбранных значений $\sigma$.]{\includegraphics[width=0.5\textwidth]{earpc_levi_dist.png}}
   \subfloat[График значения точки разбиения.]{\includegraphics[width=0.5\textwidth]{earpc_levi.png}}
   \caption{ Графики работы метода \textit{uarpc} для функции Леви.}
-  \label{uarpc_levi_plot}
+  \label{earpc_levi_plot}
 \end{figure}
 
 \begin{figure}
@@ -577,7 +587,7 @@ f(x_1, x2) = &sin^2(3\pi x) + (x - 1)^2(1 + sin^2(3\pi y)) + \\
 
 \section{Функция Растригина}
 
-Леонард Растригин предложил нелинейную мультимодальную функцию для тестирования эффективности алгоритмов оптимизации. Нахождение минимума этой функции затруднено большим количеством локальных минимумов в области поиска. Функция задается формулой~(\ref{rastrigin_eq}).
+Леонард Растригин предложил~\cite{rastrigin} нелинейную мультимодальную функцию для тестирования эффективности алгоритмов оптимизации. Нахождение минимума этой функции затруднено большим количеством локальных минимумов в области поиска. Функция задается формулой~(\ref{rastrigin_eq}).
 
 \begin{equation}
 \label{rastrigin_eq}
@@ -590,6 +600,8 @@ f(x_1, .., x_n) = An + \sum\limits_{i = 1}^n\left[ x_i^2 - Acos\left(2 \pi x_i \
     \caption{График функции Растригина для двух переменных.}
     \label{rastrigin_plot}
 \end{figure}
+
+Результаты применения исследуемых методов к данной задаче приведены в таблицах~\ref{adaptive_rastrigin_results}, \ref{q_rastrigin_results} и \ref{earpc_rastrigin_results}. На основе посчитанных результатов можно сделать выводы аналогичные сделанным на основе задачи оптимизации сферической функции~(\protect\ref{sphere_section}). Выводы подтверждаются графиками распределения выбранных значений параметра $\sigma$ в предложенных методах, приведенными на рис.~\ref{earpc_rastrigin_plot}, \ref{adaptive_rastrigin_plot} и \ref{karafotias_rastrigin}.
 
 \begin{table}
   \centering
@@ -628,6 +640,7 @@ f(x_1, .., x_n) = An + \sum\limits_{i = 1}^n\left[ x_i^2 - Acos\left(2 \pi x_i \
   \end{tabular}
   \captionsetup{justification=centering}
   \caption{Таблица с результатами применения метода \text{adaptive} для функции Растригина.}
+  \label{adaptive_rastrigin_results}
 \end{table}
 
 \begin{table}
@@ -673,6 +686,7 @@ f(x_1, .., x_n) = An + \sum\limits_{i = 1}^n\left[ x_i^2 - Acos\left(2 \pi x_i \
   \end{tabular}
   \captionsetup{justification=centering}
   \caption{Таблица с результатами применения методов \text{q-learn} и \text{karafotias} для функции Растригина.}
+  \label{q_rastrigin_results}
 \end{table}
 
 \begin{table}
@@ -718,6 +732,7 @@ f(x_1, .., x_n) = An + \sum\limits_{i = 1}^n\left[ x_i^2 - Acos\left(2 \pi x_i \
   \end{tabular}
   \captionsetup{justification=centering}
   \caption{Таблица с результатами применения методов \text{earpc} и \text{uearpc} для функции Растригина.}
+  \label{earpc_rastrigin_results}
 \end{table}
 
 \begin{figure}
@@ -725,7 +740,7 @@ f(x_1, .., x_n) = An + \sum\limits_{i = 1}^n\left[ x_i^2 - Acos\left(2 \pi x_i \
   \subfloat[График выбранных значений $\sigma$.]{\includegraphics[width=0.5\textwidth]{earpc_rastrigin_dist.png}}
   \subfloat[График значения точки разбиения.]{\includegraphics[width=0.5\textwidth]{earpc_rastrigin.png}}
   \caption{ Графики работы метода \textit{uarpc} для функции Растригина.}
-  \label{uarpc_rastrigin_plot}
+  \label{earpc_rastrigin_plot}
 \end{figure}
 
 \begin{figure}
@@ -743,6 +758,6 @@ f(x_1, .., x_n) = An + \sum\limits_{i = 1}^n\left[ x_i^2 - Acos\left(2 \pi x_i \
   \label{karafotias_rastrigin}
 \end{figure}
 
-\section{Выводы}
+\section{Выводы по главе \protect\ref{chapter_results}}
 
-Методы адаптивной настройки параметров ЭА, предложенные в главе~\ref{proposed_chapter}, были протестированы на четырех модельных задачах. Было проведено сравнение предложенных методов с существующими алгоритмами настройки параметров ЭА. Наилучшие результаты были получены при использовании предложенного метода~(\ref{adaptive_method}). Было продемонстрировано, что данный метод улучшает значения настраеваемых параметров на протяжении всего процесса оптимизации в отличие от остальных рассмотренных методов.
+Методы адаптивной настройки параметров ЭА, предложенные в главе~\ref{proposed_chapter}, были протестированы на четырех модельных задачах. Было проведено сравнение предложенных методов с существующими алгоритмами настройки параметров ЭА. Наилучшие результаты были получены при использовании предложенного метода~(\ref{adaptive_method}). Было продемонстрировано, что данный метод улучшает значения настраиваемых параметров на протяжении всего процесса оптимизации в отличие от остальных рассмотренных методов.
