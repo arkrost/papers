@@ -11,7 +11,7 @@
 }
 
 \graphicspath{{pic/}}
-
+\usepackage{subfig}
 \usepackage[utf8]{inputenc}
 \usepackage[T2A]{fontenc}
 \usepackage[english,russian]{babel}
@@ -153,57 +153,65 @@
 
 \begin{frame}{Модельная задача}
     \begin{itemize}
-        \item найти минимум функции $y^2$ с заданной точностью, $y \in [-1000, 1000]$
+        \item найти минимум функции $f(x_1, x_2)$ с заданной точностью $\epsilon$
         \item $R = c(\frac{f_t}{f_{t + 1}} - 1)$
-        \item (1+1)-эволюционная стратегия
-        \item мутация $y + \sigma \cdot x$, $\sigma \in [0, k]$, $x \sim \mathcal{N}(0,1)$
+        \item $(\mu+\lambda)$-эволюционная стратегия
+        \item мутация $x_i + \sigma \cdot dx_i$, $\sigma \in [0, k]$, $dx_i \sim \mathcal{N}(0,1)$
     \end{itemize}
 \end{frame}
 
-\begin{frame}{Результаты}
-    \begin{center}
-        \begin{tabular}{|l|l|l|l|l|l|}
-            \hline
-            k & Dist & q & single q & earpc & single earpc\\
-            \hline
-            1 & \cellcolor{olivegreen}5372 & 13604 & 9907 & 13868 & 10996 \\
-            \hline
-            5 & \cellcolor{olivegreen}10058 & 54608 & 43692 & 41712 & 47427 \\
-            \hline
-            10 & \cellcolor{olivegreen}11964 & 67218 & 174344 & 114524 & 89886 \\
-            \hline
-            20 & \cellcolor{olivegreen}8876 & 178021 & 121354 & 159028 & - \\
-            \hline
-        \end{tabular}
-    \end{center}
+\begin{frame}{Значения параметров}
+	\begin{itemize}
+		 \item $\mu \in \{1, 5, 10\}$
+		 \item $\lambda \in \{1, 3, 7\}$
+		 \item $\sigma \in \{1, 2, 3\}$
+		 \item $\epsilon = 10^{-5}$
+	\end{itemize}
 \end{frame}
 
-\begin{frame}{Earpc разбиение}
-    \begin{figure}
-        \centering
-        \includegraphics[width=0.6\textwidth]{earpc_5.png}
-    \end{figure}
+\begin{frame}{Рассматриваемые задачи}
+	\begin{itemize}
+		\item сфера:  $x_1, x_2 \in [-10; 15]$, $f(x_1, x_2) =x_1^2 + x_2^2$
+		\item функция Розенброка: $x_1, x_2 \in [-15; 10]$, 
+			\begin{align}
+				f(x_1, x_2) = (1 - x_1^2)^2 + 100(x_2 - x_1^2)^2 \nonumber
+			\end{align}
+		\item функция Леви:  $x, y \in [-10; 10]$
+			\begin{align}
+				f(x_1, x2) = &sin^2(3\pi x) + (x - 1)^2(1 + sin^2(3\pi y)) + \nonumber\\
+				& + (y - 1)^2(1 + sin^2(2\pi y)) \nonumber
+			\end{align}
+		\item функция Растригина: $x_1, x_2 \in [-5; 5]$,
+			\begin{align}
+				f(x_1, .., x_n) = An + \sum\limits_{i = 1}^n\left[ x_i^2 - Acos\left(2 \pi x_i \right)\right] \nonumber
+			\end{align}
+	\end{itemize}
 \end{frame}
 
-\begin{frame}{Earpc распределение}
-    \begin{figure}
-        \centering
-        \includegraphics[width=0.6\textwidth]{earpc_dist_5.png}
-    \end{figure}
+\begin{frame}{Результаты: adaptive}
+	 \begin{figure}
+	  \centering
+	  \subfloat[График выбранных значений $\sigma$.]{\includegraphics[width=0.5\textwidth]{earpc_sphere_dist.png}}
+	  \subfloat[График значения точки разбиения.]{\includegraphics[width=0.5\textwidth]{earpc_sphere.png}}
+	  \caption{ Графики работы метода \textit{uarpc}.}
+	\end{figure}
 \end{frame}
 
-\begin{frame}{Dist разбиение}
-    \begin{figure}
-        \centering
-        \includegraphics[width=0.6\textwidth]{dist_20.png}
-    \end{figure}
+\begin{frame}{Результаты: adaptive}
+	\begin{figure}
+	  \centering
+	  \subfloat[График выбранных значений $\sigma$.]{\includegraphics[width=0.5\textwidth]{adaptive_sphere_dist.png}}
+	  \subfloat[График значения точек разбиения.]{\includegraphics[width=0.5\textwidth]{adaptive_sphere.png}}
+	  \caption{ Графики работы метода \textit{adaptive}.}
+	\end{figure}
 \end{frame}
 
-\begin{frame}{Dist распределение}
-    \begin{figure}
-        \centering
-        \includegraphics[width=0.6\textwidth]{parts_20.png}
-    \end{figure}
+\begin{frame}{Результаты: karafotias}
+	\begin{figure}
+	  \centering
+	  \includegraphics[width=0.5\textwidth]{karafotias_sphere.png}
+	  \caption{График выбранных значений $\sigma$ в методе \textit{karafotias}.}
+	\end{figure}
 \end{frame}
 
 \begin{frame}{Заключение}
